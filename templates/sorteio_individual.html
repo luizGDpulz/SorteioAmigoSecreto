@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg reveal-card">
+                <div class="card-header bg-danger text-white text-center">
+                    <h2 class="mb-0">
+                        <i class="fas fa-gift"></i> Amigo Secreto
+                    </h2>
+                </div>
+                
+                {% if error %}
+                <div class="card-body text-center">
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-triangle"></i> {{ error }}
+                    </div>
+                    <a href="/" class="btn btn-primary">
+                        <i class="fas fa-home"></i> Voltar para página inicial
+                    </a>
+                </div>
+                {% else %}
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <div class="participant-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <h3 class="mt-3">{{ participante }}</h3>
+                    </div>
+
+                    <div class="secret-friend-reveal">
+                        <div class="text-center mb-3">
+                            <button id="revealBtn" class="btn btn-lg btn-primary" onclick="revelarAmigo()">
+                                <i class="fas fa-eye"></i> Revelar meu amigo secreto
+                            </button>
+                        </div>
+
+                        <div id="friendReveal" class="friend-info" style="display: none;">
+                            <div class="divider">
+                                <span><i class="fas fa-arrow-down"></i></span>
+                            </div>
+                            
+                            <div class="secret-friend-card">
+                                <div class="participant-avatar friend">
+                                    <i class="fas fa-gift"></i>
+                                </div>
+                                <h4 class="mt-3">Seu amigo secreto é:</h4>
+                                <h3 class="friend-name">{{ amigo_secreto }}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+
+                <div class="card-footer text-center bg-light">
+                    <small class="text-muted">
+                        <i class="fas fa-lock"></i> Esta informação é confidencial
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function revelarAmigo() {
+    const btn = document.getElementById('revealBtn');
+    const reveal = document.getElementById('friendReveal');
+    
+    btn.style.display = 'none';
+    reveal.style.display = 'block';
+    
+    // Adiciona classe para animação
+    setTimeout(() => {
+        reveal.classList.add('revealed');
+    }, 100);
+}
+</script>
+{% endblock %} 

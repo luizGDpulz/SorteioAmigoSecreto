@@ -1,0 +1,137 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-danger text-white">
+                    <h1 class="text-center mb-0">
+                        <i class="fas fa-gift"></i> Amigo Secreto
+                    </h1>
+                </div>
+                <div class="card-body">
+                    <!-- Seção de Participantes -->
+                    <div class="mb-4">
+                        <h5>Adicionar Participante</h5>
+                        <div class="input-group mb-3">
+                            <input type="text" id="nome" class="form-control" placeholder="Nome do participante">
+                            <input type="email" id="email" class="form-control" placeholder="E-mail (opcional)">
+                            <button class="btn btn-success" onclick="adicionarParticipante()">
+                                <i class="fas fa-plus"></i> Adicionar
+                            </button>
+                        </div>
+                        
+                        <!-- Tabela de Participantes -->
+                        <div class="table-responsive mt-3">
+                            <table class="table table-hover table-bordered" id="tabela-participantes">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">E-mail</th>
+                                        <th scope="col">Ações</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Preenchido dinamicamente via JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Seção de Restrições -->
+                    <div class="mb-4">
+                        <h5>Adicionar Restrições</h5>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <select id="pessoa1" class="form-select"></select>
+                            </div>
+                            <div class="col">
+                                <select id="pessoa2" class="form-select"></select>
+                            </div>
+                            <div class="col-auto">
+                                <button class="btn btn-warning" onclick="adicionarRestricao()">
+                                    <i class="fas fa-ban"></i> Adicionar
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <!-- Lista de Restrições -->
+                        <div id="lista-restricoes" class="mt-2">
+                            <h6>Restrições:</h6>
+                            <ul class="list-group" id="restricoes-container">
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Botões de Ação -->
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-lg mb-3" onclick="realizarSorteio()">
+                            <i class="fas fa-random"></i> Realizar Sorteio
+                        </button>
+                        
+                        <button class="btn btn-danger btn-lg mb-3 ms-2" onclick="confirmarReset()">
+                            <i class="fas fa-trash-alt"></i> Resetar Tudo
+                        </button>
+                    </div>
+
+                    <!-- Resultado do Sorteio -->
+                    <div id="resultado" class="mt-4">
+                        <div id="sorteio-info" style="display: none;">
+                            <div class="alert alert-success">
+                                <h5>Sorteio realizado com sucesso!</h5>
+                                <button class="btn btn-outline-success mt-2" onclick="toggleResultados()">
+                                    <i class="fas fa-eye"></i> Mostrar/Ocultar Resultados
+                                </button>
+                            </div>
+                            <div id="sorteio-detalhes" style="display: none;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Adicione este modal no final do template, antes do fechamento do último div -->
+<div class="modal fade" id="resetModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">
+                    <i class="fas fa-exclamation-triangle"></i> Confirmar Reset
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">
+                    <i class="fas fa-trash-alt fa-3x text-danger mb-3"></i>
+                </p>
+                <p class="text-center">
+                    Tem certeza que deseja resetar todo o sistema?<br>
+                    <strong>Esta ação não pode ser desfeita!</strong>
+                </p>
+                <ul class="text-danger">
+                    <li>Todos os participantes serão removidos</li>
+                    <li>Todas as restrições serão apagadas</li>
+                    <li>O último sorteio será cancelado</li>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+                <button type="button" class="btn btn-danger" onclick="resetarSistema()">
+                    <i class="fas fa-trash-alt"></i> Sim, Resetar Tudo
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+{% endblock %}
