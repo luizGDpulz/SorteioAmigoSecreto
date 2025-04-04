@@ -145,4 +145,4 @@ Este projeto está sob a licença MIT. Veja o arquivo `LICENSE` para mais detalh
 - Flask pela simplicidade e eficiência
 
 ---
-Desenvolvido com ❤️ para tornar sorteios de amigo secreto mais divertidos e organizados.
+Desenvolvido tornar sorteios de amigo secreto mais divertidos e organizados.
